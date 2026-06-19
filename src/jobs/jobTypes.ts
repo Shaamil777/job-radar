@@ -4,4 +4,5 @@ export interface Job {
   location: string;
   applyLink: string;
   source: string;
+   description?: string;
 }

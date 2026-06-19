@@ -1,11 +1,37 @@
 import { fetchJobs } from "./jobs/fetchJobs";
+import {queries} from "./jobs/queries";
+import { Job } from "./jobs/jobTypes";
+import {removeDuplicates} from "./filters/duplicateFilter"
+import { filterJobs } from "./filters/jobFilter";
+import { env } from "./config/env";
+import { appendJobs } from "./sheets/appendJobs";
 
 async function main(){
-    const jobs = await fetchJobs("React Developer India");
+    const allJobs:Job[]= []
+    for(let query of queries){
+        console.log(`Searching ${query}`);
+        const jobs = await fetchJobs(query);
+        console.log(`Found ${jobs.length} jobs\n`);
 
-    console.log(`Found ${jobs.length} jobs\n`)
+        allJobs.push(...jobs)
+        
+    }
+    console.log(`Total Jobs Collected ${allJobs.length}`)
 
-     console.log(jobs.slice(0, 5));
+    const uniqueJobs = removeDuplicates(allJobs)
+
+    console.log(`After Deduplication: ${uniqueJobs.length}`);
+
+    const filteredJobs = filterJobs(uniqueJobs)
+
+    console.log(`After Filtering: ${filteredJobs.length}`);
+
+    await appendJobs(env.googleSheetId, filteredJobs.slice(0,15))
+
+    console.log("Added to Google Sheet");
 }
 
-main()
+main().catch((error)=>{
+    console.error("Error in main:",error)
+    process.exit(1)
+})

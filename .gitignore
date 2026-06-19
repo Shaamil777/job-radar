@@ -126,3 +126,6 @@ dist
 .vscode/
 *.swp
 *.swo
+
+
+credentials/

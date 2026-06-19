@@ -25,6 +25,7 @@ export async function fetchJobs(query:string):Promise<Job[]>{
         location:job.job_city || "Remote",
         applyLink:job.job_apply_link,
         source:job.job_publisher,
+        descrition:job.job_description
     }))
     return jobs
   } catch (error) {
