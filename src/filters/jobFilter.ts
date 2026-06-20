@@ -1,7 +1,8 @@
-import { Job } from "../jobs/jobTypes"
+import { Job } from "../jobs/jobTypes";
 
-const REJECT_KEYYWORDS=[
-   "senior",
+const REJECT_KEYWORDS = [
+  // Seniority
+  "senior",
   "sr.",
   "sr ",
   "lead",
@@ -22,6 +23,9 @@ const REJECT_KEYYWORDS=[
   "cto",
   "founding engineer",
 
+  // Experience
+  "3+ years",
+  "4+ years",
   "5+ years",
   "6+ years",
   "7+ years",
@@ -29,6 +33,7 @@ const REJECT_KEYYWORDS=[
   "9+ years",
   "10+ years",
 
+  // Other senior indicators
   "experienced",
   "expert",
   "specialist",
@@ -42,31 +47,59 @@ const REJECT_KEYYWORDS=[
   "mid-level",
   "mid level",
   "mid senior",
-  "senior developer",
-  "senior engineer",
-  "senior software engineer",
-  "senior frontend developer",
-  "senior backend developer",
-  "senior full stack developer",
 
-  "backend lead",
-  "frontend lead",
-  "full stack lead",
-  "engineering lead",
+  // Unwanted tech stack
+  "python",
+  "django",
+  "flask",
 
-  "java architect",
-  "cloud architect",
-  "enterprise architect",
-  "solutions architect"
-]
+  "java",
+  "spring",
+  "spring boot",
+  "springboot",
 
+  "angular",
+  "angularjs",
 
-export function filterJobs(jobs:Job[]):Job[]{
-    return jobs.filter((job)=>{
-        const text = `${job.title} ${job.description || ""}`.toLowerCase();
+  ".net",
+  "dotnet",
+  "asp.net",
 
-        return !REJECT_KEYYWORDS.some((keywords)=>
-        text.includes(keywords)
-        );
-    });
+  "php",
+  "laravel",
+  "wordpress",
+
+  "ruby",
+  "ruby on rails",
+
+  "golang",
+
+  "android",
+  "ios",
+  "swift",
+  "kotlin",
+
+  "salesforce",
+  "sap",
+  "oracle",
+
+  "data scientist",
+  "machine learning",
+  "ai engineer",
+
+  "qa engineer",
+  "test engineer",
+  "automation tester",
+  "manual tester"
+];
+
+export function filterJobs(jobs: Job[]): Job[] {
+  return jobs.filter((job) => {
+    const text =
+      `${job.title} ${job.description || ""}`.toLowerCase();
+
+    return !REJECT_KEYWORDS.some((keyword) =>
+      text.includes(keyword)
+    );
+  });
 }
