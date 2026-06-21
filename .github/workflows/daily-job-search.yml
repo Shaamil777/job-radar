@@ -2,7 +2,7 @@ name: Career Agent
 
 on:
   schedule:
-    - cron: '30 1 * * *'
+    - cron: '17 1 * * *' # Runs at ~6:47 AM IST (1:17 AM UTC) to avoid GitHub Actions scheduling delays at the half-hour mark
   workflow_dispatch:
 
 jobs:
