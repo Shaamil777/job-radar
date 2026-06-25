@@ -4,6 +4,7 @@ import { Job } from "./jobs/jobTypes";
 import {removeDuplicates} from "./filters/duplicateFilter"
 import { filterJobs } from "./filters/jobFilter";
 import { env } from "./config/env";
+import filterSources from "./filters/filterSources";
 import { appendJobs } from "./sheets/appendJobs";
 import { getExistingJobLinks } from "./sheets/getExistingJobs";
 
@@ -27,17 +28,21 @@ async function main(){
 
     console.log(`After Filtering: ${filteredJobs.length}`);
 
+    const trustedJobs = filterSources(filteredJobs);
+
+    console.log(`After Filtering Sources: ${trustedJobs.length}`);
+
     const existingLinks = await getExistingJobLinks(env.googleSheetId);
 
     console.log(`Existing jobs in sheet: ${existingLinks.size}`);
 
-    const newJobs = filteredJobs.filter(
+    const newJobs = trustedJobs.filter(
         (job)=> !existingLinks.has(job.applyLink)
     )
 
     console.log( `New jobs to insert: ${newJobs.length}`)
 
-    await appendJobs(env.googleSheetId,newJobs.slice(0,15))
+    await appendJobs(env.googleSheetId,newJobs)
 
     console.log("Added to Google Sheet");
 }
