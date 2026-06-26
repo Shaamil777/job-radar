@@ -1,4 +1,3 @@
-import { blob } from "node:stream/consumers";
 import { Job } from "../jobs/jobTypes";
 
 const BLOCKED_DOMAINS = [

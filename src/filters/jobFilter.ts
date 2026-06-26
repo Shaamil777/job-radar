@@ -1,7 +1,6 @@
 import { Job } from "../jobs/jobTypes";
 
 const REJECT_KEYWORDS = [
-  // Seniority
   "senior",
   "sr.",
   "sr ",
@@ -23,7 +22,6 @@ const REJECT_KEYWORDS = [
   "cto",
   "founding engineer",
 
-  // Experience
   "3+ years",
   "4+ years",
   "5+ years",
@@ -33,7 +31,6 @@ const REJECT_KEYWORDS = [
   "9+ years",
   "10+ years",
 
-  // Other senior indicators
   "experienced",
   "expert",
   "specialist",
@@ -48,7 +45,6 @@ const REJECT_KEYWORDS = [
   "mid level",
   "mid senior",
 
-  // Unwanted tech stack
   "python",
   "django",
   "flask",
